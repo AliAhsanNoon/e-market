@@ -1,3 +1,5 @@
+import { AuthGuardService } from './services/auth-guard.service';
+import { JwtHelperService } from './helper/jwt-helper.service';
 import { CreateProductCanDeactivateService } from './services/create-product-can-deactivate.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -17,6 +19,8 @@ import { ApplicationRoutingModule } from './application-routing.module';
 import { UserComponent } from './users/user/user.component';
 import { UserRegisterComponent } from './users/user-register/user-register.component';
 import { UserService } from './services/user.service';
+import { StorageHelper } from './helper/storage.helper';
+import { AuthService } from './services/auth.service';
 
 @NgModule({
   declarations: [
@@ -36,7 +40,16 @@ import { UserService } from './services/user.service';
     ApplicationRoutingModule,
     FormsModule
   ],
-  providers: [ProductService, ApiClientService, UserService, CreateProductCanDeactivateService],
+  providers: [
+    AuthGuardService,
+    AuthService,
+    JwtHelperService,
+    StorageHelper,
+    ProductService,
+    ApiClientService,
+    UserService,
+    CreateProductCanDeactivateService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -7,6 +7,7 @@ import { CreateProductComponent } from './products/create-product/create-product
 import { ProductsListingComponent } from './products/products-listing/products-listing.component';
 import { UserComponent } from './users/user/user.component';
 import { UserRegisterComponent } from './users/user-register/user-register.component';
+import { AuthGuardService } from './services/auth-guard.service';
 
 const routes: Routes = [
   {
@@ -19,13 +20,15 @@ const routes: Routes = [
     path: 'login', component: UserComponent
   },
   {
-    path : 'product-listing', component : ProductsListingComponent
+    path: 'product-listing', component: ProductsListingComponent
   },
   {
-    path : 'create-product', component : CreateProductComponent, canDeactivate : [CreateProductCanDeactivateService]
+    path: 'create-product', component: CreateProductComponent,
+    canDeactivate: [CreateProductCanDeactivateService],
+    canActivate: [AuthGuardService]
   },
   {
-    path : 'product/:productId', component : CreateProductComponent
+    path: 'product/:productId', component: CreateProductComponent
   }
 ];
 
@@ -33,8 +36,8 @@ const routes: Routes = [
 @NgModule({
   declarations: [
   ],
-  imports: [ RouterModule.forRoot(routes) ],
-  exports: [ RouterModule ]
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
 })
 export class ApplicationRoutingModule { }
 

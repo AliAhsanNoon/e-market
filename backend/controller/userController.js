@@ -9,7 +9,6 @@ router.post('/register', function (req, res) {
         UserEmail: req.body.UserEmail,
         UserPassword: User.hashPassword(req.body.UserPassword)
     });
-    console.log('into userRegister', user)
 
     let promise = user.save();
     promise.then(function (doc) {
@@ -28,6 +27,7 @@ router.post('/login', function (req, res) {
     promise.then(function (doc) {
         if (doc.isValid(req.body.UserPassword)) {
             let token = jwt.sign({ UserName: doc.UserName, UserEmail: doc.UserEmail }, 'secret', { expiresIn: '3h' });
+            console.log('Doc => ', doc)
             res.status(200).json(token);
         } else {
             return res.status(501).json('Invalid Credientials')

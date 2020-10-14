@@ -2,6 +2,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 
 @Component({
@@ -12,17 +13,24 @@ import { UserService } from 'src/app/services/user.service';
 export class UserComponent implements OnInit {
   loginUser: FormGroup;
 
-  constructor(private fb: FormBuilder, private userService: UserService, private router: Router, private activatedRoute: ActivatedRoute) { }
+  constructor(
+    private authService: AuthService,
+    private fb: FormBuilder,
+    private userService: UserService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    ) { }
 
   isValid(controlName) {
     return this.loginUser.get(controlName).invalid && this.loginUser.get(controlName).touched;
   }
 
   login() {
-    this.userService.loginUser(this.loginUser.value).subscribe(
+    this.authService.loginUser(this.loginUser.value).subscribe(
       (res) => {
         console.log('user response ', res);
-        localStorage.setItem('token', res.toString())
+        this.authService.setAuthenticatedUser(res.toString());
+        //localStorage.setItem('token', res.toString())
         this.router.navigate(['/login']);
       }, (err) => {
         console.log('user error ', err)
