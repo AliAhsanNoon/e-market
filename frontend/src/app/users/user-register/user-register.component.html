@@ -1,0 +1,11 @@
+<form [formGroup]="registerUser">
+  <input class="form-control" type="text" placeholder="Please provide UserName" name="UserName" formControlName="UserName">
+  <span class="text-danger alert alert-danger" *ngIf="isValid('UserName')">invalid username</span>
+  <input class="form-control" type="email" placeholder="Please provide UserEmail" name="UserEmail" formControlName="UserEmail">
+  <span class="text-danger alert alert-danger" *ngIf="isValid('UserEmail')">invalid UserEmail</span>
+  <input class="form-control" type="password" placeholder="Please provide UserPassword" name="UserPassword" formControlName="UserPassword">
+  <!-- <span class="text-danger alert alert-danger" *ngIf="isValid('UserPassword')">invalid UserPassword</span> -->
+  <input class="form-control" type="password" placeholder="Please ConfirmPassword" name="ConfirmPassword" formControlName="ConfirmPassword">
+  <span class="text-danger alert alert-danger" *ngIf="isValid('ConfirmPassword')">Password mismatch</span>
+  <button (click)="register()" class="btn btn-success btn-block">Register</button>
+</form>

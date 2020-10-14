@@ -1,0 +1,19 @@
+<div class="row">
+  <div class="col-md-6">
+    <form [formGroup]="productForm" (ngSubmit)="onProductSubmit(productForm)" >
+      <input class="form-control mb-1" type="text" placeholder="Product Name" name="ProductName" formControlName="ProductName">
+      <input class="form-control mb-1" type="text" placeholder="Product Price" name="ProductPrice" formControlName="ProductPrice">
+      <select name="Category" class="form-control mb-1" formControlName="Category" (change)="onCategoriesChange($event.target.value)">
+          <option selected>Select Category</option>
+          <option *ngFor="let cat of categoriesList" [value]="cat._id"  > {{cat.CategoryName}} </option>
+      </select>
+      <input class="form-control mb-1" type="file" name="Image" (change)="onSelectFile($event)">
+      <button class="btn btn-primary btn-block" type="submit" [disabled]="productForm.invalid">Add Product</button>
+  </form>
+  </div>
+  <div class="col-md-6">
+    <img [src]="url" height="200"> <br/>
+
+  </div>
+</div>
+
